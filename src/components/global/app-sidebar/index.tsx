@@ -1,3 +1,5 @@
+'use client';
+
 import { Project, User } from '@prisma/client';
 import {
   Sidebar,
@@ -10,37 +12,35 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
+import NavMain from './nav-main';
+
 type AppSidebarProps = {
-  recentProjects: Project[];
-  user: User;
+  recentProjects?: Project[];
+  user?: User;
 } & React.ComponentProps<typeof Sidebar>;
 
 const AppSidebar = ({ recentProjects, user, className, ...props }: AppSidebarProps) => {
   return (
     <Sidebar
       collapsible="icon"
-      className={cn('max-w-[212px] bg-background/90', className)}
+      className={cn('w-[240px] min-w-[240px] border-r border-border bg-background', className)}
       {...props}
     >
-      {/* ───────── Header ───────── */}
-      <SidebarHeader className="pt-6 px-3 pb-0">
-        <SidebarMenuButton size="lg" className="data-[state=open]:text-sidebar-accent-foreground">
-          <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
-            <Avatar className="h-10 w-10 rounded-full">
-              <AvatarImage src="/public/brand/decly.png" alt="decly-logo" />
-              <AvatarFallback className="rounded-lg">Dl</AvatarFallback>
-            </Avatar>
-          </div>
+      <SidebarHeader className="px-3 py-4">
+        <SidebarMenuButton size="lg" className="gap-3">
+          <Avatar className="h-10 w-10">
+            <AvatarImage src="/brand/decly.png" alt="decly-logo" />
+            <AvatarFallback>Dl</AvatarFallback>
+          </Avatar>
+          <span className="text-xl font-semibold">Deckly</span>
         </SidebarMenuButton>
       </SidebarHeader>
 
-      {/* ───────── Content ───────── */}
-      <SidebarContent>
-        <SidebarGroup>{/* menu items / recent projects go here */}</SidebarGroup>
+      <SidebarContent className="px-3 mt-10 gap-y-6">
+        <NavMain />
       </SidebarContent>
 
-      {/* ───────── Footer ───────── */}
-      <SidebarFooter>{/* user / settings / logout */}</SidebarFooter>
+      <SidebarFooter />
     </Sidebar>
   );
 };
