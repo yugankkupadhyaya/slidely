@@ -6,7 +6,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarGroup,
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -15,6 +14,7 @@ import { cn } from '@/lib/utils';
 import NavMain from './nav-main';
 import { data } from '../../../lib/constants';
 import RecentOpen from './recent-open';
+import NavFooter from './nav-footer';
 
 type AppSidebarProps = {
   recentProjects: Project[];
@@ -38,13 +38,16 @@ const AppSidebar = ({ recentProjects, user, className, ...props }: AppSidebarPro
         </SidebarMenuButton>
       </SidebarHeader>
 
-      <SidebarContent className="px-3 mt-10 gap-y-6">
+      {/* ✅ KEY FIX: make content scrollable */}
+      <SidebarContent className="flex-1 overflow-y-auto px-3 mt-6 gap-y-6">
         <NavMain items={data.navMain} />
-        
-     <RecentOpen recentProjects={recentProjects}/>
+        <RecentOpen recentProjects={recentProjects} />
       </SidebarContent>
 
-      <SidebarFooter />
+      {/* ✅ Footer stays visible */}
+      <SidebarFooter className="px-2 pb-2">
+        <NavFooter prismaUser={user} />
+      </SidebarFooter>
     </Sidebar>
   );
 };
