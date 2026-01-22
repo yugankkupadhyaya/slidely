@@ -13,7 +13,6 @@ export default async function Layout({ children }: Props) {
   try {
     auth = await onAuthenticateUser();
   } catch (error) {
-    // NEVER let a layout crash
     redirect('/sign-in');
   }
 

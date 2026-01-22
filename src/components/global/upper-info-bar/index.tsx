@@ -1,13 +1,16 @@
-
-import { User } from '@prisma/client'
-import React, { ReactNode } from 'react'
-import { SidebarTrigger } from '../../ui/sidebar'
-import SearchBar from './upper-info-searchbar'
+import { User } from '@prisma/client';
+import React, { ReactNode } from 'react';
+import { SidebarTrigger } from '../../ui/sidebar';
+import SearchBar from './upper-info-searchbar';
+import ThemeSwitcher from '../mode-toggle';
+import { Button } from '../../ui/button';
+import { Upload } from 'lucide-react';
+import NewProjectButton from './new-project-button';
 
 type Props = {
-  user: User
-  children: ReactNode
-}
+  user: User;
+  children: ReactNode;
+};
 
 const UpperInfoBar = ({ user }: Props) => {
   return (
@@ -16,9 +19,19 @@ const UpperInfoBar = ({ user }: Props) => {
 
       <div className="w-full max-w-[95%] flex items-center justify-between gap-4 flex-wrap">
         <SearchBar />
+        <ThemeSwitcher />
+
+        <div className="flex flex-wrap gap-4 items-center justify-end">
+          <Button className="bg-primary-80 rounded-lg hover:bg-background-80 text-primary font-semibold cursor-not-allowed">
+            <Upload />
+            Import
+          </Button>
+
+          <NewProjectButton user={user} />
+        </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default UpperInfoBar
+export default UpperInfoBar;

@@ -1,6 +1,11 @@
 import { Home, LayoutTemplateIcon, Settings, Trash } from 'lucide-react';
 
-import type { NavItem } from '@/components/app-sidebar/nav-main';
+interface NavItem {
+  title: string;
+  url: string;
+  icon: React.ComponentType;
+}
+
 // adjust import path if needed
 
 export const data: {
@@ -38,4 +43,14 @@ export const data: {
       icon: Settings,
     },
   ],
+};
+
+export const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
 };

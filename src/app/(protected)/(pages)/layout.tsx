@@ -19,10 +19,10 @@ const layout = async ({ children }: Props) => {
     <SidebarProvider>
       <div className="flex min-h-screen">
         <AppSidebar user={checkUser.user} recentProjects={recentProjects.data ?? []} />
-        {/* {children} */}
       </div>
       <SidebarInset>
         <UpperInfoBar user={checkUser.user}>{children}</UpperInfoBar>
+        {children}
       </SidebarInset>
     </SidebarProvider>
   );
