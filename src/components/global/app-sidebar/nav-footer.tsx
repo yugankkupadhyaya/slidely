@@ -14,8 +14,9 @@ const NavFooter = ({ prismaUser }: { prismaUser: User }) => {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <div className="flex w-full flex-col gap-2 group-data-[collapsable=icon]:hidden">
-          {/* 🔽 Compact upgrade card */}
+   
+        <div className="flex w-full flex-col gap-2 group-data-[collapsible=icon]:hidden">
+        
           {!prismaUser.subscription && (
             <div className="w-full rounded-xl border border-border bg-muted/40 p-3 shadow-sm">
               <div className="flex items-center gap-2 mb-1">
@@ -35,7 +36,7 @@ const NavFooter = ({ prismaUser }: { prismaUser: User }) => {
             </div>
           )}
 
-          {/* 👤 Clerk user section */}
+          
           <SignedIn>
             <SidebarMenuButton className="justify-start gap-3 px-2 py-2">
               <UserButton
