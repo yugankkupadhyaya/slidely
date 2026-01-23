@@ -20,10 +20,10 @@ const Projects = ({ projects }: Props) => {
       {projects.map((project) => (
         <ProjectCard
           key={project.id}
-          projectID={project?.id}
+          projectId={project?.id}
           title={project?.title}
-          createdAt={project?.createdAt.toString}
-          isDelete={project?.isDeleted}
+          createdAt={project.createdAt.toString()}
+          isDeleted={project?.isDeleted}
           slideData={project?.slides}
           src={
             project.thumbnail ||

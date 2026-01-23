@@ -6,7 +6,14 @@ const DashboardPage = async () => {
   const allProject = await getAllProjects();
 
   return (
-    <div>
+    <div className="flex flex-col gap-6">
+      {/* Header */}
+      <div className="flex flex-col gap-1">
+        <h1 className="text-xl font-semibold tracking-tight">Projects</h1>
+        <p className="text-sm text-muted-foreground">All your work in one place</p>
+      </div>
+
+      {/* Content */}
       {allProject.data && allProject.data.length > 0 ? (
         <Projects projects={allProject.data} />
       ) : (
