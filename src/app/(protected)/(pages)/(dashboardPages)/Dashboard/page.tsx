@@ -1,7 +1,6 @@
 import { getAllProjects } from '../../../../../actions/project';
 import NotFound from '../../../../../components/global/not-found';
 import ProjectCard from '../../../../../components/global/project-card';
-import Projects from '../../../../../components/global/projects';
 
 const DashboardPage = async () => {
   const allProject = await getAllProjects();
@@ -16,8 +15,20 @@ const DashboardPage = async () => {
 
       {/* projects  */}
       {allProject.data && allProject.data.length > 0 ? (
-        <Projects projects={allProject.data} />
-        // <ProjectCard projects={allProject.data} />
+        <div className="grid gap-4">
+          {allProject.data.map((project) => (
+            <ProjectCard
+              key={project.id}
+              projectId={project.id}
+              title={project.title}
+              createdAt={project.createdAt.toString()}
+              src={project.thumbnail || ''}
+              isDeleted={project.isDeleted}
+              slideData={project.slides}
+              themeName={project.themeName}
+            />
+          ))}
+        </div>
       ) : (
         <NotFound />
       )}

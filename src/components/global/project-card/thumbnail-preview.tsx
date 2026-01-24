@@ -1,8 +1,9 @@
 import React from 'react';
 import { Slide, Theme } from './../../../lib/types';
 import { cn } from '../../../lib/utils';
+import { Image } from 'lucide-react';
 
-type Props = { slide: Slide; theme: Theme };
+type Props = { slide?: Slide; theme: Theme };
 
 const ThumbnailPreview = ({ slide, theme }: Props) => {
   return (
@@ -17,7 +18,18 @@ const ThumbnailPreview = ({ slide, theme }: Props) => {
         backgroundColor: theme.slideBackgroundColor,
         backgroundImage: theme.gradientBackground,
       }}
-    ></div>
+    >
+      {slide ? (
+        <div className="scale-[0.5] origin-top-left w-[200%] overflow-hidden">
+          {/* wip:add a previewof slides   */}
+          this is a slide{' '}
+        </div>
+      ) : (
+        <div className="w-full h-full bg-gray-400 flex justify-center">
+          <Image className="w-6 h-6 text-gray-500" />
+        </div>
+      )}
+    </div>
   );
 };
 

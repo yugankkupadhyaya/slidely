@@ -25,6 +25,7 @@ const Projects = ({ projects }: Props) => {
           createdAt={project.createdAt.toString()}
           isDeleted={project?.isDeleted}
           slideData={project?.slides}
+          themeName={project.themeName}
           src={
             project.thumbnail ||
             'https://unsplash.com/photos/a-pile-of-multicolored-confetti-sitting-on-top-of-a-white-table-BSPG-wXR7zM'

@@ -1,11 +1,11 @@
 'use client';
-import { cn } from '@/lib/utils';
+import { cn, timeAgo } from '@/lib/utils';
 
 import { JsonValue } from '@prisma/client/runtime/library';
 import React from 'react';
 
 import { motion } from 'framer-motion';
-import { itemVariants } from '../../../lib/constants';
+import { itemVariants, themes } from '../../../lib/constants';
 import { useSlideStore } from '../../../store/useSlideStore';
 import { useRouter } from 'next/navigation';
 import ThumbnailPreview from './thumbnail-preview';
@@ -18,9 +18,18 @@ type Props = {
   src: string;
   isDeleted?: boolean;
   slideData: JsonValue;
+  themeName: string;
 };
 
-const ProjectCard = ({ projectId, title, createdAt, src, isDeleted, slideData }: Props) => {
+const ProjectCard = ({
+  projectId,
+  title,
+  createdAt,
+  src,
+  isDeleted,
+  slideData,
+  themeName,
+}: Props) => {
   const router = useRouter();
   const { setSlides } = useSlideStore();
 
@@ -28,8 +37,10 @@ const ProjectCard = ({ projectId, title, createdAt, src, isDeleted, slideData }:
     setSlides(JSON.parse(JSON.stringify(slideData)));
     router.push(`/presentation/${projectId}`);
   };
+  const theme = themes.find((theme) => theme.name === themeName);
   return (
     <motion.div
+     
       variants={itemVariants}
       className={cn(
         'group w-full flex flex-col gap-y-3 rounded-xl p-3 transition-colors',
@@ -40,7 +51,23 @@ const ProjectCard = ({ projectId, title, createdAt, src, isDeleted, slideData }:
         className="relative aspect-16/10 overflow-hidden rounded-lg cursor-pointer"
         onClick={handleNavigate}
       >
-        <ThumbnailPreview slide={undefined} theme={Theme} />
+        {theme && (
+          <ThumbnailPreview
+            theme={theme}
+            // wip:add slide data
+            // slide={JSON.parse(JSON.stringify(slideData))?.[0]}
+          />
+        )}
+      </div>
+      <div className="w-full">
+        <div className="space-y-1">
+          <h3 className="font-semibold text-base text-primary line-clamp-1">{title}</h3>
+          <div className="flex w-full justify-between items-center gap-2">
+            <p className="text-sm text-muted-foreground" suppressHydrationWarning>
+              {timeAgo(createdAt)}
+            </p>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
