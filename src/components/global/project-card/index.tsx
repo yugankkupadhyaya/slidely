@@ -2,14 +2,13 @@
 import { cn, timeAgo } from '@/lib/utils';
 
 import { JsonValue } from '@prisma/client/runtime/library';
-import React from 'react';
 
 import { motion } from 'framer-motion';
+import { Image } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { itemVariants, themes } from '../../../lib/constants';
 import { useSlideStore } from '../../../store/useSlideStore';
-import { useRouter } from 'next/navigation';
 import ThumbnailPreview from './thumbnail-preview';
-import { Theme } from './../../../lib/types';
 
 type Props = {
   projectId: string;
@@ -40,34 +39,32 @@ const ProjectCard = ({
   const theme = themes.find((theme) => theme.name === themeName);
   return (
     <motion.div
-     
       variants={itemVariants}
       className={cn(
-        'group w-full flex flex-col gap-y-3 rounded-xl p-3 transition-colors',
+        'group w-full flex flex-col gap-y-3 transition-colors',
         isDeleted && 'hover:bg-muted/50'
       )}
     >
       <div
-        className="relative aspect-16/10 overflow-hidden rounded-lg cursor-pointer"
+        className="relative aspect-[16/10] overflow-hidden rounded-lg cursor-pointer border border-border bg-muted/50 flex items-center justify-center"
         onClick={handleNavigate}
       >
-        {theme && (
+        {theme ? (
           <ThumbnailPreview
             theme={theme}
             // wip:add slide data
             // slide={JSON.parse(JSON.stringify(slideData))?.[0]}
           />
+        ) : (
+          <div className="w-full h-full bg-muted flex items-center justify-center">
+            <Image className="w-8 h-8 text-muted-foreground" />
+          </div>
         )}
       </div>
       <div className="w-full">
-        <div className="space-y-1">
-          <h3 className="font-semibold text-base text-primary line-clamp-1">{title}</h3>
-          <div className="flex w-full justify-between items-center gap-2">
-            <p className="text-sm text-muted-foreground" suppressHydrationWarning>
-              {timeAgo(createdAt)}
-            </p>
-          </div>
-        </div>
+        <p className="text-sm text-muted-foreground" suppressHydrationWarning>
+          {timeAgo(createdAt)}
+        </p>
       </div>
     </motion.div>
   );

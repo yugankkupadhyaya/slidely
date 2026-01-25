@@ -1,8 +1,8 @@
 'use client';
 
+import { Project } from '@prisma/client';
 import { motion } from 'framer-motion';
 import { containerVariants } from '../../../lib/constants';
-import { Project } from '@prisma/client';
 import ProjectCard from '../project-card';
 
 type Props = {
@@ -10,6 +10,12 @@ type Props = {
 };
 
 const Projects = ({ projects }: Props) => {
+  if (!projects || projects.length === 0) {
+    return null;
+  }
+
+  console.log('Projects component rendering with:', projects.length, 'projects');
+
   return (
     <motion.div
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"

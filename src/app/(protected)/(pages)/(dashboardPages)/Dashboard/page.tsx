@@ -1,9 +1,27 @@
 import { getAllProjects } from '../../../../../actions/project';
-import NotFound from '../../../../../components/global/not-found';
-import ProjectCard from '../../../../../components/global/project-card';
+import Projects from '../../../../../components/global/projects';
 
 const DashboardPage = async () => {
   const allProject = await getAllProjects();
+
+  // TEMPORARY: Add test project for debugging
+  const testProject = {
+    id: 'test-1',
+    title: 'Test Project',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    thumbnail: null,
+    isDeleted: false,
+    isSellable: false,
+    slides: null,
+    outlines: [],
+    themeName: 'Default',
+    variantId: null,
+  } as any; // Temporary type assertion
+
+  const projects = allProject.status === 200 && allProject.data && Array.isArray(allProject.data) && allProject.data.length > 0
+    ? allProject.data
+    : [testProject]; // Use test project if no real projects
 
   return (
     <div className="flex flex-col gap-6">
@@ -14,24 +32,9 @@ const DashboardPage = async () => {
       </div>
 
       {/* projects  */}
-      {allProject.data && allProject.data.length > 0 ? (
-        <div className="grid gap-4">
-          {allProject.data.map((project) => (
-            <ProjectCard
-              key={project.id}
-              projectId={project.id}
-              title={project.title}
-              createdAt={project.createdAt.toString()}
-              src={project.thumbnail || ''}
-              isDeleted={project.isDeleted}
-              slideData={project.slides}
-              themeName={project.themeName}
-            />
-          ))}
-        </div>
-      ) : (
-        <NotFound />
-      )}
+      <div className="pl-6">
+        <Projects projects={projects} />
+      </div>
     </div>
   );
 };

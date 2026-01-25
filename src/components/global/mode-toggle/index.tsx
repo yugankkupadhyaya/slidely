@@ -13,7 +13,7 @@ const ThemeSwitcher = () => {
     setMounted(true);
   }, []);
 
-  // ⛔ Prevent hydration mismatch
+ 
   if (!mounted) return null;
 
   return (
